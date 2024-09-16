@@ -205,6 +205,8 @@ In this diagram:
 
 Relationships in Entity-Relationship Diagrams (ERDs) represent the associations between entities. They are crucial for understanding how different data elements interact within a database system.
 
+
+
 ## Types of Relationships
 
 Relationships can be classified based on the number of entities involved:
@@ -213,55 +215,58 @@ Relationships can be classified based on the number of entities involved:
 2. **Binary Relationships**
 3. **Ternary Relationships**
 
+## Degree of Relationship
+
+The degree of a relationship refers to the number of entities participating in that relationship. It's a crucial concept in understanding how data is related in a database system.
+
 ### 1. Unary (Recursive) Relationships
 
-- Definition: A relationship between instances of the same entity type.
-- Representation: A relationship line that connects an entity to itself.
-- Example: Employee management hierarchy or employee marriages within a company.
+- **Degree**: One
+- **Definition**: A relationship between instances of the same entity type.
+- **Representation**: A relationship line that connects an entity to itself.
+- **Examples**: 
+  1. Employee management hierarchy
+  2. Employee marriages within a company
 
 #### Example: Employee Management Hierarchy
 
 Consider the following Employee table:
 
-| Id | Name  | Age | ManagerId |
-|----|-------|-----|-----------|
-| 1  | Ahmed | 43  | NULL      |
-| 2  | Aya   | 37  | 1         |
-| 3  | Omar  | 36  | 1         |
-| 4  | Mona  | 32  | 2         |
+| Id | Name  | Age | ManagerId | MarriedTo |
+|----|-------|-----|-----------|-----------|
+| 1  | Ahmed | 43  | NULL      | 2         |
+| 2  | Aya   | 37  | 1         | 1         |
+| 3  | Omar  | 36  | 1         | NULL      |
+| 4  | Mona  | 32  | 2         | NULL      |
 
 In this example:
-- The "Manage" relationship is unary, connecting the Employee entity to itself.
-- ManagerId refers back to the Id of another employee, creating a hierarchical structure.
+- The "Manage" relationship is unary, connecting the Employee entity to itself through the ManagerId.
+- The "MarriedTo" relationship is also unary, representing marriages between employees.
 
 ### 2. Binary Relationships
 
-- Definition: A relationship between two different entity types.
-- Example: "Customer" borrows "Loan"
+- **Degree**: Two
+- **Definition**: A relationship between two different entity types.
+- **Example**: "Customer" borrows "Loan"
 
 ### 3. Ternary Relationships
 
-- Definition: A relationship involving three entity types.
-- Less common but sometimes necessary to accurately represent complex relationships.
-
-## Relationship Attributes
-
-Some relationships have attributes that only exist when the relationship occurs.
-
-Example: In a "Customer borrows Loan" relationship, "Date Issued" is a relationship attribute.
-- It only exists when a loan is actually borrowed by a customer.
-- If no customer has taken a loan, there is no "Date Issued".
+- **Degree**: Three
+- **Definition**: A relationship involving three entity types.
+- **Note**: Less common but sometimes necessary to accurately represent complex relationships.
 
 ## Visual Representation
 
 ```mermaid
 erDiagram
     EMPLOYEE ||--o{ EMPLOYEE : manages
+    EMPLOYEE ||--o| EMPLOYEE : "married to"
     EMPLOYEE {
         int Id
         string Name
         int Age
         int ManagerId
+        int MarriedTo
     }
     CUSTOMER ||--o{ LOAN : borrows
     LOAN {
@@ -277,17 +282,19 @@ erDiagram
     }
 ```
 
-In this diagram:
-- The "manages" relationship on EMPLOYEE demonstrates a unary relationship.
+In this updated diagram:
+- The "manages" relationship on EMPLOYEE demonstrates a unary relationship for the management hierarchy.
+- The "married to" relationship on EMPLOYEE shows another unary relationship for employee marriages.
 - The "borrows" relationship between CUSTOMER and LOAN shows a binary relationship.
 - CUSTOMER_LOAN represents the relationship attributes (like DateIssued) that exist only when the relationship occurs.
 
 ## Key Points
 
-1. Unary relationships connect an entity to itself, often representing hierarchies or self-referential data.
-2. Binary relationships are the most common, connecting two different entity types.
-3. Ternary relationships involve three entities and are used for more complex associations.
-4. Relationship attributes exist only in the context of the relationship and don't belong to any single entity.
+1. The degree of a relationship is determined by the number of participating entities.
+2. Unary relationships (degree one) connect an entity to itself, often representing hierarchies or self-referential data.
+3. Binary relationships (degree two) are the most common, connecting two different entity types.
+4. Ternary relationships (degree three) involve three entities and are used for more complex associations.
+5. Understanding the degree of relationships is crucial for proper database design and query optimization.
 
 ## Considerations in Database Design
 
