@@ -44,21 +44,18 @@ The relationship between a weak entity and its owner (strong) entity is called a
 ## Visual Representation
 
 ```mermaid
-erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    CUSTOMER {
-        int customerID
-        string name
-    }
-    ORDER ||--|{ ORDER_ITEM : contains
-    ORDER {
-        int orderID
-        date orderDate
-    }
-    ORDER_ITEM {
-        int lineItemNumber
-        int quantity
-    }
+graph LR
+    A((number)) --- E[account]
+    B((balance)) --- E
+    E --- F{has} --- G[Transaction]
+    G --- C((trans_date))
+    G --- D((trans_number))
+    G --- H((trans_type))
+    G --- I((trans_amt))
+    
+    style E fill:#f9f,stroke:#333,stroke-width:2px
+    style G fill:#f9f,stroke:#333,stroke-width:2px
+    style F fill:#fff,stroke:#333,stroke-width:2px
 ```
 
 In this diagram:
