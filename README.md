@@ -14,9 +14,6 @@ A strong entity is an entity whose existence does not depend on the existence of
 ### Visual Representation
 - Single rectangle in ERD
 
-### Example
-A "Customer" entity in a retail database system
-
 ## Weak Entities
 
 ### Definition
@@ -30,9 +27,6 @@ A weak entity is an entity whose existence depends on the existence of another e
 ### Visual Representation
 - Double rectangle in ERD
 
-### Example
-An "Order Line Item" entity that depends on the existence of an "Order" entity
-
 ## Relationship Between Strong and Weak Entities
 
 ### Identifying Relationship
@@ -42,6 +36,8 @@ The relationship between a weak entity and its owner (strong) entity is called a
 - Double diamond in ERD
 
 ## Visual Representation
+
+Here's a visual representation using Chen notation style:
 
 ```mermaid
 graph LR
@@ -59,9 +55,15 @@ graph LR
 ```
 
 In this diagram:
-- CUSTOMER and ORDER are strong entities (single rectangle)
-- ORDER_ITEM is a weak entity (double rectangle in standard notation, shown here as a regular entity due to mermaid limitations)
-- The relationship between ORDER and ORDER_ITEM would typically be shown with a double diamond (shown here as a single line due to mermaid limitations)
+- Rectangles represent entities ("account" and "Transaction")
+- Ovals (approximated by circles) represent attributes
+- A diamond shape represents the relationship ("has")
+
+Note: In a full ERD:
+- Strong entities would be single rectangles (as shown)
+- Weak entities would be double rectangles
+- Identifying relationships would be double diamonds
+- Primary key attributes would be underlined
 
 ## Key Points
 
