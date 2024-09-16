@@ -306,3 +306,95 @@ In this updated diagram:
 ---
 
 *Note: The implementation of relationships in actual databases may vary depending on the specific database management system and the requirements of the application.*
+
+
+[Previous content remains unchanged]
+
+## Cardinality Constraints
+
+Cardinality constraints define how many instances of one entity can be associated with instances of another entity in a relationship. These constraints are crucial for accurately representing the business rules in a data model.
+
+### Types of Cardinality Constraints
+
+1. **One-to-One (1:1)**
+2. **One-to-Many (1:N)**
+3. **Many-to-Many (M:N)**
+
+#### 1. One-to-One (1:1)
+- Definition: One instance of an entity is associated with exactly one instance of another entity.
+- Example: One employee has one car (assuming company policy allows only one company car per employee).
+
+#### 2. One-to-Many (1:N)
+- Definition: One instance of an entity is associated with multiple instances of another entity.
+- Example: One department has many employees.
+
+#### 3. Many-to-Many (M:N)
+- Definition: Multiple instances of an entity are associated with multiple instances of another entity.
+- Example: Many students take many courses.
+
+### Examples
+
+1. **Student and Course (Many-to-Many)**
+   - One student takes many courses.
+   - One course is taken by many students.
+   - Combined: Many-to-Many relationship.
+
+2. **Employee and Department (Many-to-One)**
+   - One employee works in one department.
+   - One department has many employees.
+   - Combined: Many-to-One relationship (from Employee to Department).
+
+3. **Employee and Car (One-to-One)**
+   - One employee has one company car.
+   - One company car is assigned to one employee.
+
+## Visual Representation
+
+```mermaid
+erDiagram
+    EMPLOYEE ||--|| CAR : "is assigned"
+    EMPLOYEE }|--|| DEPARTMENT : "works in"
+    STUDENT }|--o{ COURSE : takes
+    EMPLOYEE {
+        int EmployeeId
+        string Name
+    }
+    CAR {
+        int CarId
+        string Model
+    }
+    DEPARTMENT {
+        int DepartmentId
+        string Name
+    }
+    STUDENT {
+        int StudentId
+        string Name
+    }
+    COURSE {
+        int CourseId
+        string Title
+    }
+```
+
+In this diagram:
+- The "is assigned" relationship between EMPLOYEE and CAR shows a one-to-one relationship.
+- The "works in" relationship between EMPLOYEE and DEPARTMENT shows a many-to-one relationship.
+- The "takes" relationship between STUDENT and COURSE shows a many-to-many relationship.
+
+## Key Points
+
+1. Cardinality constraints define the number of instances that can participate in a relationship.
+2. One-to-One relationships connect single instances of two entities.
+3. One-to-Many relationships allow one instance of an entity to be associated with multiple instances of another entity.
+4. Many-to-Many relationships allow multiple instances on both sides of the relationship.
+5. Understanding cardinality is crucial for properly modeling business rules and designing efficient database structures.
+
+## Considerations in Database Design
+
+1. **Data Integrity**: Cardinality constraints help enforce data integrity rules in the database.
+2. **Table Structure**: The cardinality of relationships often influences how tables are structured and related in the physical database design.
+3. **Performance**: Different cardinalities may require different indexing strategies for optimal query performance.
+4. **Flexibility**: Consider future requirements when defining cardinalities, as changing them later can be challenging.
+
+[Rest of the content remains unchanged]
