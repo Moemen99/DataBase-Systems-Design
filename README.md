@@ -81,3 +81,120 @@ Note: In a full ERD:
 ---
 
 *Note: The visual representation in actual ERD tools may differ slightly from the mermaid diagram shown here, particularly in the representation of weak entities and identifying relationships.*
+
+
+
+
+# Attribute Types in Entity-Relationship Diagrams
+
+In Entity-Relationship Diagrams (ERDs), attributes represent the properties or characteristics of entities. Understanding different types of attributes is crucial for effective database design.
+
+## Types of Attributes
+
+### 1. Simple Attributes
+- Definition: Basic, indivisible attributes
+- Representation: Single ellipse
+- Examples:
+  - For Customer entity: cust-id, cust-street, cust-city
+  - For Account entity: number, balance
+
+### 2. Composite Attributes
+- Definition: Attributes composed of multiple simple attributes
+- Representation: Ellipse with connected sub-ellipses
+- Examples:
+  - Customer name (composed of first name and last name)
+  - Date of birth (composed of day, month, year)
+
+### 3. Derived Attributes
+- Definition: Attributes whose values can be calculated from other attributes
+- Representation: Dashed ellipse
+- Examples:
+  - Age (calculated from date of birth)
+  - Net salary (calculated from salary and deductions)
+- Note: Derived attributes are typically not stored in the database to save space. They are handled in application code.
+- Trade-off: For complex calculations, it might be more efficient to store the result as a simple attribute to save processing time.
+
+### 4. Multi-valued Attributes
+- Definition: Attributes that can have multiple values for a single entity
+- Representation: Double ellipse
+- Examples:
+  - Customer phone numbers
+  - Customer addresses
+
+### 5. Complex Attributes
+- Definition: A combination of multi-valued and composite attributes
+- Representation: Double ellipse with connected sub-ellipses
+- Example: Customer addresses, where each address consists of street, city, and country
+
+## Visual Representation
+
+```mermaid
+graph TD
+    E[Customer] --- A((cust-id))
+    E --- B((cust-street))
+    E --- C((cust-city))
+    E --- D{name}
+    D --- D1((first name))
+    D --- D2((last name))
+    E --- F{date of birth}
+    F --- F1((day))
+    F --- F2((month))
+    F --- F3((year))
+    E --- G[("age")]
+    E --- H((("phone numbers")))
+    E --- I{{"addresses"}}
+    I --- I1((street))
+    I --- I2((city))
+    I --- I3((country))
+    
+    style E fill:#f9f,stroke:#333,stroke-width:2px
+    style A fill:#fff,stroke:#333,stroke-width:1px
+    style B fill:#fff,stroke:#333,stroke-width:1px
+    style C fill:#fff,stroke:#333,stroke-width:1px
+    style D fill:#fff,stroke:#333,stroke-width:1px
+    style F fill:#fff,stroke:#333,stroke-width:1px
+    style G fill:#fff,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5
+    style H fill:#fff,stroke:#333,stroke-width:2px
+    style I fill:#fff,stroke:#333,stroke-width:2px
+```
+
+In this diagram:
+- Simple attributes: cust-id, cust-street, cust-city
+- Composite attributes: name, date of birth
+- Derived attribute: age (dashed ellipse)
+- Multi-valued attribute: phone numbers (double ellipse)
+- Complex attribute: addresses (double ellipse with sub-attributes)
+
+## Considerations in Database Design
+
+1. **Storage Efficiency**: 
+   - Simple attributes are straightforward to store
+   - Derived attributes often aren't stored to save space
+   - Complex attributes may require careful structuring (e.g., separate tables)
+
+2. **Query Performance**: 
+   - Simple and stored composite attributes allow for quick queries
+   - Derived attributes may require calculation time if not stored
+
+3. **Data Integrity**: 
+   - Properly defined attributes help maintain data consistency
+   - Multi-valued attributes often necessitate separate tables to maintain normalization
+
+4. **Flexibility**: 
+   - Complex and multi-valued attributes provide flexibility for varying data requirements
+
+5. **Trade-offs**: 
+   - Consider the balance between storage space and computation time
+   - For complex calculations, storing the result as a simple attribute might be more efficient
+
+## Best Practices
+
+1. Use simple attributes when possible for straightforward data storage and retrieval
+2. Implement composite attributes when there's a logical grouping of data
+3. Carefully consider whether to store or calculate derived attributes based on usage frequency and complexity
+4. Normalize multi-valued and complex attributes to maintain data integrity
+5. Document the rationale behind attribute choices, especially for derived and complex attributes
+
+---
+
+*Note: The visual representation and implementation of attributes may vary depending on the specific ERD notation and database management system being used.*
