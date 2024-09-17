@@ -513,30 +513,99 @@ Relationships in Entity-Relationship Diagrams (ERDs) have three main properties:
 - For ternary and many-to-many relationships, the focus shifts to properly implementing the relationship rather than detailing specific constraints.
 - This approach streamlines the database design process for these types of relationships.
 
-[Previous content on each type of constraint remains, followed by:]
 
-## Examples
 
-### Binary Relationship Example
-Entity A --- Relationship --- Entity B
-- Degree: Binary
-- Cardinality: Determine for both A to B and B to A
-- Participation: Determine for both A and B
+## Enhanced Visual Representation
 
-### Ternary Relationship Example
-Entity A --┐
-           ├-- Relationship
-Entity B --┤
-Entity C --┘
-- Degree: Ternary
-- Cardinality and Participation: Not focused on due to single implementation scenario
+```mermaid
+erDiagram
+    EMPLOYEE ||--o| CAR : "is assigned"
+    EMPLOYEE }|--|| DEPARTMENT : "works in"
+    STUDENT }|--o{ COURSE : "enrolls in"
+    PROJECT }o--o{ EMPLOYEE : "works on"
+    EMPLOYEE ||--|| EMPLOYEE_INFO : "has"
+    SUPPLIER ||--|{ PART : "supplies"
+    EMPLOYEE {
+        int EmployeeId
+        string Name
+    }
+    CAR {
+        int CarId
+        string Model
+    }
+    DEPARTMENT {
+        int DepartmentId
+        string Name
+    }
+    STUDENT {
+        int StudentId
+        string Name
+    }
+    COURSE {
+        int CourseId
+        string Title
+    }
+    PROJECT {
+        int ProjectId
+        string Name
+    }
+    EMPLOYEE_INFO {
+        int EmployeeId
+        string Address
+        string Phone
+    }
+    SUPPLIER {
+        int SupplierId
+        string Name
+    }
+    PART {
+        int PartId
+        string Name
+    }
+```
 
-### Many-to-Many Relationship Example
-Entity A ---- M:N Relationship ---- Entity B
-- Degree: Binary
-- Cardinality: Many-to-Many
-- Participation: Not focused on due to single implementation scenario
+### Explanation of Diagram
 
-## Conclusion
+1. **Employee - Car** (Binary, One-to-One, Partial-Total)
+   - An employee may have one car (partial participation)
+   - Each car must be assigned to one employee (total participation)
 
-Understanding these properties and knowing when to focus on specific constraints helps in creating more efficient and accurate database designs. It's crucial to recognize scenarios where certain constraints are less relevant, allowing for a more streamlined approach to database modeling.
+2. **Employee - Department** (Binary, Many-to-One, Total-Total)
+   - Many employees work in one department
+   - Every employee must be in a department (total)
+   - Every department must have at least one employee (total)
+
+3. **Student - Course** (Binary, Many-to-Many, Partial-Partial)
+   - Many students can enroll in many courses
+   - Not all students need to be enrolled (partial)
+   - Not all courses need to have students (partial)
+
+4. **Project - Employee** (Binary, Many-to-Many, Partial-Partial)
+   - Many employees can work on many projects
+   - Not all employees need to be on a project (partial)
+   - Not all projects need to have employees (partial)
+
+5. **Employee - Employee_Info** (Binary, One-to-One, Total-Total)
+   - Each employee has exactly one employee info record
+   - Each employee info record belongs to exactly one employee
+
+6. **Supplier - Part** (Binary, One-to-Many, Total-Partial)
+   - One supplier can supply many parts
+   - Each part must be supplied by one supplier (total)
+   - A supplier may not supply any parts (partial)
+
+Note: In mermaid, we can't directly represent participation constraints (total/partial) visually. In a traditional ERD:
+- Total participation would be shown with a double line
+- Partial participation would be shown with a single line
+
+### Key for Mermaid Notation:
+- `||--||` : One-to-One
+- `}|--|{` : Many-to-Many
+- `}|--||` : Many-to-One
+- `||--|{` : One-to-Many
+- `o` : Zero or more (partial participation)
+- `|` : Exactly one (total participation)
+
+This enhanced diagram showcases various types of relationships, cardinalities, and (implied) participation constraints, providing a comprehensive view of how entities can be related in an ERD.
+
+[
