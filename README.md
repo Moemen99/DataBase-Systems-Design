@@ -608,4 +608,4 @@ Note: In mermaid, we can't directly represent participation constraints (total/p
 
 This enhanced diagram showcases various types of relationships, cardinalities, and (implied) participation constraints, providing a comprehensive view of how entities can be related in an ERD.
 
-[
+
